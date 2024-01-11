@@ -4,7 +4,7 @@ from rest_framework import serializers
 from myapp.validators import *
 
 TYPE_CHOICES = (
-        ['S',"Shopkeeper"],
+        ['M',"Merchant"],
         ['C',"Common"],       
 )
 
