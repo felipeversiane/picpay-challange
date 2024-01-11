@@ -18,7 +18,7 @@ class Transaction(models.Model):
     objects = TransactionManager()
     
     def __str__(self):
-        return "{}-{}-{}-{}".format(self.payer.username, self.payee.username, self.amount, self.transaction_date.strftime('%d-%m-%Y %H:%M'))
+        return "{} {}-{}-{}".format(self.payer.username, self.payee.username, self.amount, self.transaction_date.strftime('%d-%m-%Y %H:%M'))
 
     class Meta:
         verbose_name = "Transaction"

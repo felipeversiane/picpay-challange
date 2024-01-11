@@ -5,6 +5,7 @@ from django.core.exceptions import ValidationError
 from .validators import *
 
 class TransactionManager(models.Manager):
+    
     def create_transaction(self, transaction_data):
         payer_id = transaction_data.get("payer")
         payee_id = transaction_data.get("payee")
@@ -46,14 +47,13 @@ class TransactionManager(models.Manager):
             return True
 
         except requests.RequestException as e:
-            print(f"Network error: {e}")
-            return False
+            raise ValidationError(f"Network Error: {e}")
 
         except ValueError as e:
-            print(f"JSON Error: {e}")
-            return False
-        
-    def send_notification(self,payee,message):
+            raise ValidationError(f"Json Error: {e}")
+
+
+    def send_notification(payee,message):
            email = payee.email  
            API_URL = 'https://run.mocky.io/v3/54dc2cf1-3add-45b5-b5a9-6bf7e7f1f4a6'
            response = requests.get(API_URL)

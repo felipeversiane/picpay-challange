@@ -10,9 +10,9 @@ TYPE_CHOICES = (
 
 # You can use AbstractUser to extend the Django User
 class CustomUser(models.Model):
-    first_name = models.CharField(max_length=255,verbose_name="First Name",validators=[validate_letters,validate_first_letter])
-    last_name = models.CharField(max_length=255, verbose_name="Last Name",validators=[validate_letters,validate_first_letter])
-    document = models.CharField(max_length=14, unique=True, verbose_name="Document",validators=[validate_value])
+    first_name = models.CharField(max_length=255,null=False,blank=False,verbose_name="First Name",validators=[validate_letters,validate_first_letter])
+    last_name = models.CharField(max_length=255,null=False,blank=False, verbose_name="Last Name",validators=[validate_letters,validate_first_letter])
+    document = models.CharField(max_length=14, unique=True, verbose_name="Document")
     email = models.EmailField(unique=True, verbose_name="Email")
     password = models.CharField(max_length=255,null=True,blank=True) # In this case we don't need to use this password
     balance = models.DecimalField(verbose_name="Balance",max_digits=10, decimal_places=2,null=False,blank=False,default=0)
