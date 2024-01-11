@@ -11,8 +11,8 @@ class TransactionManager(models.Manager):
         payee_id = transaction_data.get("payee")
         amount = transaction_data.get("value")
 
-        payer = CustomUser.objects.get(id=payer_id)
-        payee = CustomUser.objects.get(id=payee_id)
+        payer = self.get_user_by_id(payer_id)
+        payee = self.get_user_by_id(payee_id)
 
         validate_transaction(payer, amount)
 
@@ -61,8 +61,16 @@ class TransactionManager(models.Manager):
            response_data = response.json()
            if response_data.get("result") != "ok" :
                  raise ValidationError("Email service is out.")
-       
- 
+    
+    @staticmethod   
+    def get_user_by_id(user_id):
+        try:
+            user = CustomUser.objects.get(id=user_id)
+            return user
+        except CustomUser.DoesNotExist:
+            raise ValidationError(f"User {user_id} not found")
+
+
             
                         
            

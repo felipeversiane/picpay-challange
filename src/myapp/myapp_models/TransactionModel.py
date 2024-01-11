@@ -32,5 +32,5 @@ class TransactionSerializer(serializers.ModelSerializer):
 
 class TransactionCreateSerializer(serializers.Serializer):
     value = serializers.DecimalField(max_digits=10, decimal_places=2,validators=[validate_value])
-    payer = serializers.IntegerField()
-    payee = serializers.IntegerField()
+    payer = serializers.IntegerField(validators=[validate_value])
+    payee = serializers.IntegerField(validators=[validate_value])
