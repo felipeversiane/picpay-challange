@@ -2,7 +2,6 @@ import datetime
 from django.core.exceptions import ValidationError
 from django.utils import timezone
 import re
-from django.core.exceptions import ValidationError
 
 
 def validate_first_letter(str):    

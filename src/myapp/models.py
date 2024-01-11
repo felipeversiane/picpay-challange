@@ -1,2 +1,2 @@
-from myapp.models.TransactionModel import *
-from myapp.models.UserModel import *
+from myapp.myapp_models.TransactionModel import *
+from myapp.myapp_models.UserModel import *

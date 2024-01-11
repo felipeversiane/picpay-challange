@@ -27,7 +27,6 @@ PREREQUISITE_APPS = [
     'corsheaders',
     'auditlog',
     'rest_framework',
-    'rest_framework_simplejwt',
     'celery',
 ]
 

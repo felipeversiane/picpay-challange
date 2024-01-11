@@ -20,3 +20,5 @@ django-cors-headers==4.1.0
 djangorestframework==3.13.0
 Django-Persistent-Message==1.1
 django-auditlog==2.2.2
+requests==2.26.0
+

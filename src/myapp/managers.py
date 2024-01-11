@@ -1,8 +1,8 @@
 import requests
 from django.db import models
-from myapp.models.UserModel import CustomUser
-from myapp.validators import ValidationError
-from validators import *
+from myapp.myapp_models.UserModel import CustomUser
+from django.core.exceptions import ValidationError
+from .validators import *
 
 class TransactionManager(models.Manager):
     def create_transaction(self, transaction_data):
@@ -16,7 +16,7 @@ class TransactionManager(models.Manager):
         validate_transaction(payer, amount)
 
         if self.authorize_transaction(payer, amount):
-            transaction = self.create(
+            transaction = self.create( 
                 amount=amount,
                 payer=payer,
                 payee=payee
@@ -28,11 +28,12 @@ class TransactionManager(models.Manager):
             payee.save()
 
             return transaction
+
         else:
             raise ValidationError("Transaction failed.")
 
-    @staticmethod
-    def authorize_transaction(payer, amount):
+
+    def authorize_transaction(self,payer, amount):
         API_URL = "https://run.mocky.io/v3/5794d450-d2e2-4412-8131-73d0293ac1cc"
 
         try:
@@ -40,10 +41,9 @@ class TransactionManager(models.Manager):
             response.raise_for_status()  
             response_data = response.json()
 
-            if response_data.get("result") == "ok" and response_data.get("message") == "Autorizado":
-                return True
-            else:
+            if response_data.get("result") != "ok" and response_data.get("message") != "Autorizado":
                 return False
+            return True
 
         except requests.RequestException as e:
             print(f"Network error: {e}")
@@ -52,3 +52,17 @@ class TransactionManager(models.Manager):
         except ValueError as e:
             print(f"JSON Error: {e}")
             return False
+        
+    def send_notification(self,payee,message):
+           email = payee.email  
+           API_URL = 'https://run.mocky.io/v3/54dc2cf1-3add-45b5-b5a9-6bf7e7f1f4a6'
+           response = requests.get(API_URL)
+           response.raise_for_status()  
+           response_data = response.json()
+           if response_data.get("result") != "ok" :
+                 raise ValidationError("Email service is out.")
+       
+ 
+            
+                        
+           

@@ -5,7 +5,7 @@ from django.conf import settings
 from rest_framework import routers
 from myapp.urls import router as router_myapp
 
-router = routers.DefaultRouter()
+router = routers.DefaultRouter()    
 
 urlpatterns = [
     re_path('admin/', admin.site.urls),
