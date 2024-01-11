@@ -1,14 +1,9 @@
 # Deploy Django and Nextjs using Nginx, Celery, Redis and Postgresql with Docker
 
-Where it is described how this boilerplate was created from scratch so that you can build your own.
+RESTful API application based on a picpay bank challenge.
 
-## Advantages
-1. Ready to use with your django/nextjs project.
-2. Combined with NGINX, Redis, Celery, Tailwind to handle relevent things.
-3. Alpine based images are used, so that sizes of the images are compartively low.
-4. Now comes built it with Numpy, Scipy and Pandas support. So you can integrate your datascience projects with this. [Instructions](#now-featuring-numpy-scipy-and-pandas) for integrating these libraries are also shared in the `Dockerfile`.
-5. With Numpy, Pandas and Scipy dependecies installed, the total size is 657MB(may differ if you have more packages). Without these, size reduces to 390MB.
-6. Now comes with support to install [Pillow](https://pypi.org/project/Pillow/) using django.
+[Challange Repository](https://github.com/PicPay/picpay-desafio-backend)
+
 
 ## Basic Usage
 1. First run **`make build`** inside root directory.
