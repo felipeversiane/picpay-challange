@@ -10,3 +10,7 @@ class StafflistPermission(permissions.BasePermission):
             return user.is_staff
         else:
          return False
+        
+class IsPayer(permissions.BasePermission):
+    def has_object_permission(self, request, view, obj):
+        return obj.payer == request.user

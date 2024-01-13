@@ -5,8 +5,8 @@ from django.core.exceptions import ValidationError
 from .validators import *
 
 class TransactionManager(models.Manager):
-    
-    def create_transaction(self, transaction_data):
+        
+    def create_transaction(self, transaction_data, user):
         payer_id = transaction_data.get("payer")
         payee_id = transaction_data.get("payee")
         amount = transaction_data.get("value")
@@ -15,6 +15,9 @@ class TransactionManager(models.Manager):
         payee = self.get_user_by_id(payee_id)
 
         validate_transaction(payer, amount)
+
+        if payer != user:
+            raise ValidationError("You are not authorized to perform this transaction.")
 
         if self.authorize_transaction(payer, amount):
             transaction = self.create( 
@@ -29,7 +32,6 @@ class TransactionManager(models.Manager):
             payee.save()
 
             return transaction
-
         else:
             raise ValidationError("Transaction failed.")
 
